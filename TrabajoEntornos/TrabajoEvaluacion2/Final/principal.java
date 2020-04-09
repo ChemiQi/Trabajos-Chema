@@ -56,7 +56,139 @@ public class principal {
 		return contactos;
 }
 
+	private static int numeroDeContactos(Statement stmt) {
+		ResultSet rs;
+		String a ;
+		int x;
+		try {
+			
+			rs = stmt.executeQuery("SELECT  COUNT(id) FROM agenda.contactos;");
+			if(rs.next())
+			{
+				  a = rs.getString(1);	
+				  return x = Integer.parseInt(a);
+			}else
+			{
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+
+	private static String seleccionarNombre(Statement stmt, int i) {
+		ResultSet rs;
+		String a ;
+		try {
+			rs = stmt.executeQuery("select nombre from agenda.contactos where id ='" + i + "'");
+			if(rs.next())
+			{
+				return  a = rs.getString(1);	
+			}else
+			{
+				return null;
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 	
+	private static String seleccionarApellido1(Statement stmt, int i) {
+		ResultSet rs;
+		String a ;
+		try {
+			rs = stmt.executeQuery("select apellido1 from agenda.contactos where id ='" + i + "'");
+			if(rs.next())
+			{
+				return  a = rs.getString(1);	
+			}else
+			{
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private static String seleccionarApellido2(Statement stmt, int i) {
+		ResultSet rs;
+		String a ;
+		try {
+			rs = stmt.executeQuery("select apellido2 from agenda.contactos where id ='" + i + "'");
+			if(rs.next())
+			{
+				return  a = rs.getString(1);	
+			}else
+			{
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private static String seleccionarDireccion(Statement stmt, int i) {
+		ResultSet rs;
+		String a ;
+		try {
+			rs = stmt.executeQuery("select direccion from agenda.contactos where id ='" + i + "'");
+			if(rs.next())
+			{
+				return  a = rs.getString(1);	
+			}else
+			{
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private static String seleccionarEmail(Statement stmt, int i) {
+		ResultSet rs;
+		String a ;
+		try {
+			rs = stmt.executeQuery("select email from agenda.contactos where id ='" + i + "'");
+			if(rs.next())
+			{
+				return  a = rs.getString(1);	
+			}else
+			{
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private static int seleccionarTelefono(Statement stmt, int i) {
+		ResultSet rs;
+		String a ;
+		int x;
+		try {
+			rs = stmt.executeQuery("select telefono from agenda.contactos where id ='" + i + "'");
+			if(rs.next())
+			{
+				  a = rs.getString(1);	
+				  return x = Integer.parseInt(a);
+			}else
+			{
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	
 	
 	
