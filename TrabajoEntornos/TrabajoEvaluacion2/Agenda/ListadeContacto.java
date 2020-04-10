@@ -121,5 +121,25 @@ public class ListadeContacto {
 		return 0;
 	}
 	
+	private static String seleccionarNombre2(Statement stmt, int i) {
+		ResultSet rs;
+		String a ;
+		try {
+			rs = stmt.executeQuery("select * from agenda.contactos where id ='" + i + "'");
+			if(rs.next())
+			{
+				return  a = rs.getString(1) + rs.getString(2) + rs.getString(3) + rs.getString(4) + rs.getString(5) + rs.getString(6);	
+			}else
+			{
+				return null;
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	
 }

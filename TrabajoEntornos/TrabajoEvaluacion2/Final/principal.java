@@ -11,15 +11,18 @@ public class principal {
 
 	public static void main(String[] args) {
 		
-		Connection con;		
+				
 		Conexion c1 = new Conexion();
 		c1.conexion();
-		con = c1.getCon();
-		ListadeContacto lc = new ListadeContacto( cogerContactos(con));
+		
+		ArrayList<Contactos> con = cogerContactos(c1.getCon());
+		Statement stmt = conStat(c1.getCon());
+		ListadeContacto lc = new ListadeContacto(con);
+		
 		
 		int menu = 0;
 		Scanner teclado = new Scanner(System.in);
-		
+		String busqueda;
 		int menu2 = 0;
 		
 		if (lc.getConexion().conexion() == true) {
@@ -29,7 +32,8 @@ public class principal {
 				System.out.println("");
 				System.out.println("1 > Mostrar Contactos");
 				System.out.println("2 > Buscar contacto");
-				System.out.println("3 > Salir");
+				System.out.println("3 > Crear contacto");
+				System.out.println("4 > Salir");
 				menu = teclado.nextInt();
 				teclado.nextLine();
 				
@@ -67,22 +71,68 @@ public class principal {
 						System.out.println("");
 						teclado.nextLine();
 					}
-				case 3:
+				case 4:
 					System.out.println("Gracias y vuelva pronto");
 					break;
+				case 3:
+					int menu3 = 0;
+					do {
+						System.out.println("Dime los datos del nuevo contacto");
+						System.out.println("Nombre");
+						String nombre = teclado.nextLine();
+						System.out.println("Primer apellido");
+						String apellido1 = teclado.nextLine();
+						System.out.println("Segundo apelldio");
+						String apellido2 = teclado.nextLine();
+						System.out.println("Calle");
+						String calle = teclado.nextLine();
+						System.out.println("Correo electronico");
+						String email = teclado.nextLine();
+						System.out.println("Telefono");
+						int tel = teclado.nextInt();
+						teclado.nextLine();
+						System.out.println("Estos son los datos??");
+						Contactos c2 = new Contactos (0,nombre,apellido1,apellido2,calle,email,tel);
+						c2.mostrarContacto();
+						System.out.println("-------------------------------------------------------\nSi -->1 \nNo -->2");
+						 menu3 = teclado.nextInt();
+						 teclado.nextLine();
+						if(menu3 ==1)
+						{
+							con.add(c2);
+							añadridContactoBBDD(c2,stmt);
+							System.out.println("Contacto creado");
+						}
+						if(menu3 == 2) {
+							System.out.println("Añada otra vez los datos");
+						}
+					}while(menu3 !=1);
 				default:
 				}
-			}while(menu !=3);
+			}while(menu !=4);
 		}
-		
 		
 	}
 	
 	
 	
 	
-	//METODOS -----------------------------------------------------------------------------
 	
+
+
+
+
+	//METODOS -----------------------------------------------------------------------------
+	private static Statement conStat(Connection con) {
+		try {
+			return con.createStatement();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
 	
 	private static ArrayList<Contactos> cogerContactos(Connection con) {
 		ArrayList<Contactos> contactos = new ArrayList<Contactos>();
@@ -92,15 +142,7 @@ public class principal {
 			int i =numeroDeContactos(stmt);
 			for(int y= 1; y <= i;y++ ) {
 				
-				String nombre = seleccionarNombre(stmt,y);
-				String apellido1 = seleccionarApellido1(stmt,y);
-				String apellido2 = seleccionarApellido2(stmt,y);
-				String direccion = seleccionarDireccion(stmt,y);
-				String email = seleccionarEmail(stmt,y);
-				int telefono = seleccionarTelefono(stmt,y);
-				
-				Contactos cy = new Contactos (y,nombre,apellido1,apellido2,direccion,email,telefono);
-				contactos.add(cy);
+				contactos.add(cogerContacto(y,stmt));
 				
 			} 
 		} catch (SQLException e) {	
@@ -109,6 +151,7 @@ public class principal {
 		
 		return contactos;
 }
+
 
 	private static int numeroDeContactos(Statement stmt) {
 		ResultSet rs;
@@ -130,16 +173,17 @@ public class principal {
 		}
 		return 0;
 	}
-
-
-	private static String seleccionarNombre(Statement stmt, int i) {
+	
+	private static Contactos cogerContacto(int i, Statement stmt) {
 		ResultSet rs;
-		String a ;
 		try {
-			rs = stmt.executeQuery("select nombre from agenda.contactos where id ='" + i + "'");
+			rs = stmt.executeQuery("select * from agenda.contactos where id ='" + i + "'");
 			if(rs.next())
 			{
-				return  a = rs.getString(1);	
+				
+				int telefono = Integer.parseInt(rs.getString(7));
+				return new Contactos(i,rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),telefono);
+				
 			}else
 			{
 				return null;
@@ -152,97 +196,23 @@ public class principal {
 		return null;
 	}
 	
-	private static String seleccionarApellido1(Statement stmt, int i) {
-		ResultSet rs;
-		String a ;
+	private static void añadridContactoBBDD(Contactos c2, Statement stmt) {
+		
 		try {
-			rs = stmt.executeQuery("select apellido1 from agenda.contactos where id ='" + i + "'");
-			if(rs.next())
-			{
-				return  a = rs.getString(1);	
-			}else
-			{
-				return null;
-			}
+			System.out.println("Has llegado aqui");
+			stmt.executeUpdate("insert into agenda.contactos (nombre,apellido1,apellido2,direccion,email,telefono) values ('"+c2.getNombre()+"','" + c2.getApellido1() + "','" + c2.getApellido2() + "','" + c2.getDireccion()
+			+"','" + c2.getEmail() +"','"+ String.valueOf(c2.getTelefono()) + "')");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		
+		
+		
+		
+		
 	}
 	
-	private static String seleccionarApellido2(Statement stmt, int i) {
-		ResultSet rs;
-		String a ;
-		try {
-			rs = stmt.executeQuery("select apellido2 from agenda.contactos where id ='" + i + "'");
-			if(rs.next())
-			{
-				return  a = rs.getString(1);	
-			}else
-			{
-				return null;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	private static String seleccionarDireccion(Statement stmt, int i) {
-		ResultSet rs;
-		String a ;
-		try {
-			rs = stmt.executeQuery("select direccion from agenda.contactos where id ='" + i + "'");
-			if(rs.next())
-			{
-				return  a = rs.getString(1);	
-			}else
-			{
-				return null;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	private static String seleccionarEmail(Statement stmt, int i) {
-		ResultSet rs;
-		String a ;
-		try {
-			rs = stmt.executeQuery("select email from agenda.contactos where id ='" + i + "'");
-			if(rs.next())
-			{
-				return  a = rs.getString(1);	
-			}else
-			{
-				return null;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	private static int seleccionarTelefono(Statement stmt, int i) {
-		ResultSet rs;
-		String a ;
-		int x;
-		try {
-			rs = stmt.executeQuery("select telefono from agenda.contactos where id ='" + i + "'");
-			if(rs.next())
-			{
-				  a = rs.getString(1);	
-				  return x = Integer.parseInt(a);
-			}else
-			{
-				return 0;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
 	
 	
 	
