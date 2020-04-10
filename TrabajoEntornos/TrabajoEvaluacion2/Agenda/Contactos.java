@@ -1,7 +1,18 @@
 package Agenda;
 
+/**
+ * 
+ * Esta clase construye un nuevo "Contacto" con sus distintos atributos
+ * @author Chema
+ *
+ */
+
 public class Contactos {
 
+	/**
+	 * Atributos de contactos
+	 */
+	
 	private int id;
 	private String nombre;
 	private String apellido1;
@@ -10,7 +21,9 @@ public class Contactos {
 	private String email;
 	private int telefono;
 	
-	// CONSTRUCOTRES
+	/*
+	 * Constructores
+	 */
 	
 	public Contactos(int id,String nombre, String apellido1, String apellido2, String direccion, String email, int telefono) {
 		super();
@@ -45,24 +58,39 @@ public class Contactos {
 		this.telefono = c.telefono;
 	}
 	
-	//GET AND SETTER
+	/**
+	 * Coge el nombre
+	 */
 
 	
 	public final String getNombre() {
 		return nombre;
 	}
+	/**
+	 * 
+	 * @param nombre . Un nombre que queremos añadir
+	 */
 
 	public final void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	/**
+	 * @return . Devuelve un apellido
+	 */
 
 	public final String getApellido1() {
 		return apellido1;
 	}
 
+	/**
+	 * @param apellido1 . Añadimos un nuevo primer apelldio
+	 */
 	public final void setApellido1(String apellido1) {
 		this.apellido1 = apellido1;
 	}
+	/**
+	 * @return nos devuelve el segundo apellido
+	 */
 
 	public final String getApellido2() {
 		return apellido2;
@@ -103,14 +131,20 @@ public class Contactos {
 		this.id = id;
 	}
 	
-	
+/**
+ * Metodo que sirve para mostrar los datos del contacto
+ */
 	public void mostrarContacto() {
-		System.out.println(this.id + " Nombre y apellidos: " + this.nombre + " " + this.apellido1 + " " + this.apellido2);
+		System.out.println(" Nombre y apellidos: " + this.nombre + " " + this.apellido1 + " " + this.apellido2);
 		System.out.println("Direcion: " + this.direccion);
 		System.out.println("Correo Electronico: " + this.email);
 		System.out.println("Telefono: " + this.telefono);
 	}
 
+	
+	/**
+	 * Añadimos un "hasCode" en el id para que sea único y no se repita.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;

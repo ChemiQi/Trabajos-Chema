@@ -1,13 +1,28 @@
 package Agenda;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * Tercera clase la cual necesitaremos un Arraylist de contactos, donde se añadiran los contactos de la base de datos, y una conexion a esta.
+ * @author Chema
+ *
+ */
+
 public class ListadeContacto {
+	
+	/**
+	 * Atributos
+	 */
 	
 	private ArrayList<Contactos> contactos;
 	private Conexion conexion ;
 	
-	//CONSTRUCTORES
+	/**
+	 * Constructores
+	 */
 	
 	public ListadeContacto(ArrayList<Contactos> contactos) {
 		super();
@@ -24,7 +39,9 @@ public class ListadeContacto {
 				System.out.println("Conectado satisfactoriamente \n");
 			}
 	}
-	//GET AND SETTER
+	/*
+	 * Get and set
+	 */
 	
 	public final ArrayList<Contactos> getContactos() {
 		return contactos;
@@ -39,14 +56,19 @@ public class ListadeContacto {
 		this.conexion = conexion;
 	}
 	
-	//CONSULTAS
+	/**
+	 * Metodo para mostrar contactos del arraylist, usando el metodo propio de "Contactos"
+	 */
 	public void mostrarContactos() {
 		for(Contactos c : this.contactos) {
 			c.mostrarContacto();
 			System.out.println("-------------------------------------------");
 		}
 	}
-	
+	/**
+	 * Busqueda de contacto por numero de telefono
+	 * @param telefono . Un numero telefono que añadimos nosotros
+	 */
 	public void buscarPor(int telefono){
 		int x = 0;
 		System.out.println("Hemos encontrado los siguientes contactos por ese numero de telefono: \n");
@@ -61,6 +83,10 @@ public class ListadeContacto {
 			System.out.println("No se han encontrado contactos");
 		}
 	}
+	/**
+	 * Metodo para buscar un contacto por el atributo email
+	 * @param email . Correo electronico que añadimos para la busqueda
+	 */
 	public void buscarPor(String email){
 		int x = 0;
 		System.out.println("Hemos encontrado los siguientes contactos por ese email: \n");
@@ -75,29 +101,26 @@ public class ListadeContacto {
 			System.out.println("No se han encontrado contactos");
 		}
 	}
-	
-	
-	
-public static void main(String[] args) {
-		
-		ArrayList<Contactos> contactos = new ArrayList<Contactos>();
-		Contactos c1 = new Contactos(1,"Chema", "Martinez", "Barquero","himno","Chema@gmasasdail.com",6172923);
-		Contactos c2 = new Contactos(2,"Chemsa", "Martinasez", "Barqueadsro","hidasmno","Chema@gmail.com",6172923);
-		
-		contactos.add(c1);
-		contactos.add(c2);
-		
-		ListadeContacto lc = new ListadeContacto (contactos);
-		
-		lc.mostrarContactos();
-		
-		lc.buscarPor(6172923);
-		lc.buscarPor("Chema@gmasasdail.com");
-		
+	private static int numeroDeContactos(Statement stmt) {
+		ResultSet rs;
+		String a ;
+		int x;
+		try {
+			
+			rs = stmt.executeQuery("SELECT  COUNT(id) FROM agenda.contactos;");
+			if(rs.next())
+			{
+				  a = rs.getString(1);	
+				  return x = Integer.parseInt(a);
+			}else
+			{
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
-
-
-
-
+	
 	
 }

@@ -2,9 +2,17 @@ package Agenda;
 
 import java.sql.*;
 
-
+/**
+ * Clase de conexión, la cual es la que se conecta a la Base de Datos
+ * @author Chema
+ *
+ */
 
 public class Conexion {
+	
+	/**
+	 * Atributos
+	 */
 	
 	private boolean isDBConected;
 	private static Connection con;
@@ -18,6 +26,11 @@ public class Conexion {
 	public final Connection getCon() {
 		return con;
 	}
+	
+	/**
+	 * Metodo que hace la conexion a la Base de datos
+	 * @return . Devuelve un boolean que nos devolvera "true" si la base de datos se ha conectado, y false si no se ha conectado.
+	 */
 	
 	public boolean conexion() {
 	try
@@ -34,18 +47,5 @@ public class Conexion {
 	return isDBConected = false;
 	}
 	}
-
-	
-	public static void main(String[] args) {
-		
-		Conexion c1 = new Conexion();
-		c1.conexion();
-		
-	}
-
-
-
-	
-	
 	
 }

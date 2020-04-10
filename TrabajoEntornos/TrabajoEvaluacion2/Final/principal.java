@@ -19,7 +19,7 @@ public class principal {
 		
 		int menu = 0;
 		Scanner teclado = new Scanner(System.in);
-		String busqueda;
+		
 		int menu2 = 0;
 		
 		if (lc.getConexion().conexion() == true) {
