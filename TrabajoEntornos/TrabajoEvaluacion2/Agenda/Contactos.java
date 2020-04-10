@@ -36,6 +36,7 @@ public class Contactos {
 		this.telefono = telefono;
 	}
 	
+	
 	public Contactos() {
 		super();
 		this.id = 0;

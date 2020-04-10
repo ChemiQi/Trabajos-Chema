@@ -33,7 +33,8 @@ public class principal {
 				System.out.println("1 > Mostrar Contactos");
 				System.out.println("2 > Buscar contacto");
 				System.out.println("3 > Crear contacto");
-				System.out.println("4 > Salir");
+				System.out.println("4 > Borrar contacto");
+				System.out.println("5 > Salir");
 				menu = teclado.nextInt();
 				teclado.nextLine();
 				
@@ -71,7 +72,7 @@ public class principal {
 						System.out.println("");
 						teclado.nextLine();
 					}
-				case 4:
+				case 5:
 					System.out.println("Gracias y vuelva pronto");
 					break;
 				case 3:
@@ -107,20 +108,37 @@ public class principal {
 							System.out.println("Añada otra vez los datos");
 						}
 					}while(menu3 !=1);
+					break;
+				case 4:
+					System.out.println("Dime el numero de telefono para borrar el usuario");
+					int telefono = teclado.nextInt();
+					teclado.nextLine();
+					lc.buscarPor(telefono);
+					System.out.println("¿Estás seguro que quieres borrar este contacto?");
+					System.out.println("1 --> Si");
+					System.out.println("2 --> No");
+					int menu4 = teclado.nextInt();
+					teclado.nextLine();
+					if (menu4 == 1) {
+						lc.borrarDeArray(telefono);
+						borrarDeBBDD(telefono,stmt);
+					}
+					else if(menu4 ==2) {
+						System.out.println("Volviendo al menu principal");
+						
+					}
+					else {
+						System.out.println("formato incorrecto");
+					}
+					break;
+					
 				default:
 				}
-			}while(menu !=4);
+			}while(menu !=5);
 		}
 		
 	}
 	
-	
-	
-	
-	
-
-
-
 
 	//METODOS -----------------------------------------------------------------------------
 	private static Statement conStat(Connection con) {
@@ -142,7 +160,12 @@ public class principal {
 			int i =numeroDeContactos(stmt);
 			for(int y= 1; y <= i;y++ ) {
 				
-				contactos.add(cogerContacto(y,stmt));
+				Contactos c1 = cogerContacto(y,stmt);
+				if(c1.getId()!=0) {
+					contactos.add(c1);
+				}else {
+					i++;
+				}
 				
 			} 
 		} catch (SQLException e) {	
@@ -185,8 +208,9 @@ public class principal {
 				return new Contactos(i,rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),telefono);
 				
 			}else
-			{
-				return null;
+			{	
+				i++;
+				return new Contactos();
 				
 			}
 		} catch (SQLException e) {
@@ -197,7 +221,6 @@ public class principal {
 	}
 	
 	private static void añadridContactoBBDD(Contactos c2, Statement stmt) {
-		
 		try {
 			System.out.println("Has llegado aqui");
 			stmt.executeUpdate("insert into agenda.contactos (nombre,apellido1,apellido2,direccion,email,telefono) values ('"+c2.getNombre()+"','" + c2.getApellido1() + "','" + c2.getApellido2() + "','" + c2.getDireccion()
@@ -205,14 +228,20 @@ public class principal {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		
-		
-		
-		
-		
+		}	
 	}
 	
+	private static void borrarDeBBDD(int telefono, Statement stmt) {
+		String borrar = "Delete from agenda.contactos where telefono =" + telefono;
+		try {
+			stmt.executeUpdate(borrar);
+			System.out.println("Contacto borrado \nPulse una tecla para continuar..");
+		} catch (SQLException e) {
+			System.out.println("error");
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 	

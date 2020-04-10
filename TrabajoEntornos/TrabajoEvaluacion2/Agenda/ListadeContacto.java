@@ -4,6 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
+
+
 
 /**
  * Tercera clase la cual necesitaremos un Arraylist de contactos, donde se añadiran los contactos de la base de datos, y una conexion a esta.
@@ -120,25 +123,16 @@ public class ListadeContacto {
 		}
 		return 0;
 	}
-	
-	private static String seleccionarNombre2(Statement stmt, int i) {
-		ResultSet rs;
-		String a ;
-		try {
-			rs = stmt.executeQuery("select * from agenda.contactos where id ='" + i + "'");
-			if(rs.next())
-			{
-				return  a = rs.getString(1) + rs.getString(2) + rs.getString(3) + rs.getString(4) + rs.getString(5) + rs.getString(6);	
-			}else
-			{
-				return null;
-				
+	public void borrarDeArray(int telefono) {
+		Iterator<Contactos> it = this.contactos.iterator();
+		while (it.hasNext())
+		{
+			Contactos a = it.next();
+			if(telefono == a.getTelefono()) {
+				it.remove();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		
-		return null;
 	}
 	
 	
