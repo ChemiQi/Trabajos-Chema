@@ -58,24 +58,27 @@ public class Contactos {
 		this.telefono = c.telefono;
 	}
 	
-	/**
-	 * Coge el nombre
-	 */
 
+
+	/**
+	 * Obtener el parametro nombre de la clase
+	 * @return Nos devuelve el nombre
+	 */
 	
 	public final String getNombre() {
 		return nombre;
 	}
 	/**
-	 * 
-	 * @param nombre . Un nombre que queremos añadir
+	 * Modifica el parametro nombre
+	 * @param nombre . Añadimos un nuevo parametro 
 	 */
 
 	public final void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 	/**
-	 * @return . Devuelve un apellido
+	 * Podemos pedirle que nos de el apellido1 en forma de String 
+	 * @return . Devuelve apellido1
 	 */
 
 	public final String getApellido1() {
@@ -83,53 +86,80 @@ public class Contactos {
 	}
 
 	/**
+	 * Modifica el parametro apellido1, cambiandolo al nuevo String que nosotros hemos añadido
 	 * @param apellido1 . Añadimos un nuevo primer apelldio
 	 */
 	public final void setApellido1(String apellido1) {
 		this.apellido1 = apellido1;
 	}
 	/**
-	 * @return nos devuelve el segundo apellido
+	 * Manera de obeneter apellido2
+	 * @return nos devuelve el parametro apellido2
 	 */
 
 	public final String getApellido2() {
 		return apellido2;
 	}
-
+	
+	/**
+	 * Cambiamos el parametro apellido2
+	 * @param apellido2 cambiamos el parametro apellido2, por el añadido
+	 */
 	public final void setApellido2(String apellido2) {
 		this.apellido2 = apellido2;
 	}
-
+	/**
+	 * Obetner el parametro direccion
+	 * @return nos devuelve un String con el parametro Direccion
+	 */
 	public final String getDireccion() {
 		return direccion;
 	}
 
+	/**
+	 * Sustituir el parametro de dirección
+	 * @param direccion nuevo valor de direccion
+	 */
 	public final void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-
+	
+	/**
+	 * Obtener el parametro "email"
+	 * @return nos devuelve el parametro email
+	 */
 	public final String getEmail() {
 		return email;
 	}
-
+	/**
+	 * Sustituir el parametro email
+	 * @param email añadimos email
+	 */
 	public final void setEmail(String email) {
 		this.email = email;
 	}
-
+	/**
+	 * Obtener el parametro telefono
+	 * @return nos devuelve parametro telefono
+	 */
 	public final int getTelefono() {
 		return telefono;
 	}
-
+	/**
+	 * Cambiar el parametro telefono
+	 * @param telefono añadimos nuevo telefono
+	 */
 	public final void setTelefono(int telefono) {
 		this.telefono = telefono;
 	}
+	/**
+	 * Nos devuelve el parametro ID
+	 * @return devuelve parametro ID
+	 */
 	public final int getId() {
 		return id;
 	}
-
-	public final void setId(int id) {
-		this.id = id;
-	}
+	
 	
 /**
  * Metodo que sirve para mostrar los datos del contacto

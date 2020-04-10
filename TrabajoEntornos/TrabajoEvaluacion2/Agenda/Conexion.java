@@ -17,12 +17,17 @@ public class Conexion {
 	private boolean isDBConected;
 	private static Connection con;
 	
-	
+	/**
+	 * Constructor
+	 */
 	public Conexion() {
-		super();
-		
+		super();	
 	}
 	
+	/**
+	 * Nos devuelve el parametro conexion
+	 * @return boolean de conexion
+	 */
 	public final Connection getCon() {
 		return con;
 	}

@@ -39,22 +39,15 @@ public class ListadeContacto {
 				System.out.println("Conectado satisfactoriamente \n");
 			}
 	}
-	/*
-	 * Get and set
-	 */
 	
-	public final ArrayList<Contactos> getContactos() {
-		return contactos;
-	}
-	public final void setContactos(ArrayList<Contactos> contactos) {
-		this.contactos = contactos;
-	}
+	/**
+	 * Manera de obtener el estado de la conexion
+	 * @return boolean con el estado de la conexion
+	 */
 	public final Conexion getConexion() {
 		return conexion;
 	}
-	public final void setConexion(Conexion conexion) {
-		this.conexion = conexion;
-	}
+	
 	
 	/**
 	 * Metodo para mostrar contactos del arraylist, usando el metodo propio de "Contactos"
@@ -101,6 +94,12 @@ public class ListadeContacto {
 			System.out.println("No se han encontrado contactos");
 		}
 	}
+	
+	/**
+	 * Nos devuelve un numero de contactos que tenemos en la base de datos, para crear el arraylist
+	 * @param stmt -> La conexion que tenemos
+	 * @return -> Nos devuelve el numero de contactos que tenemos en la base de datos
+	 */
 	private static int numeroDeContactos(Statement stmt) {
 		ResultSet rs;
 		String a ;
