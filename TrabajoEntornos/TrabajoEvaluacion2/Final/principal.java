@@ -3,6 +3,7 @@ package Final;
 import Agenda.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
@@ -14,13 +15,66 @@ public class principal {
 		Conexion c1 = new Conexion();
 		c1.conexion();
 		con = c1.getCon();
-		Contactos c2 = new Contactos();
-		
 		ListadeContacto lc = new ListadeContacto( cogerContactos(con));
-		lc.mostrarContactos();
-		lc.buscarPor(54652319);
-		lc.getContactos().add(c2);
-		lc.mostrarContactos();
+		
+		int menu = 0;
+		Scanner teclado = new Scanner(System.in);
+		String busqueda;
+		int menu2 = 0;
+		
+		if (lc.getConexion().conexion() == true) {
+			do {
+				System.out.println("---------------------MENU------------------");
+				System.out.println("--------------------AGENDA------------------)");
+				System.out.println("");
+				System.out.println("1 > Mostrar Contactos");
+				System.out.println("2 > Buscar contacto");
+				System.out.println("3 > Salir");
+				menu = teclado.nextInt();
+				teclado.nextLine();
+				
+				switch (menu) {
+				case 1:
+					lc.mostrarContactos();
+					System.out.println("...");
+					System.out.println("Pulse una tecla para continuar");
+					System.out.println("");
+					teclado.nextLine();
+					break;
+				case 2:
+					System.out.println("¿Qué metodo deseas usar para buscar el usuario?");
+					System.out.println("1 --> Telefono");
+					System.out.println("2 --> Correo electronico");
+					menu2 = teclado.nextInt();
+					teclado.nextLine();
+					
+					if (menu2 == 1) {
+						System.out.println("Escriba el numero de telefono");
+						int telefono = teclado.nextInt();
+						teclado.nextLine();
+						lc.buscarPor(telefono);
+						System.out.println("...");
+						System.out.println("Pulse una tecla para continuar");
+						System.out.println("");
+						teclado.nextLine();
+					}
+					else if (menu2 == 2) {
+						System.out.println("Escriba el correo electronico");
+						String correo = teclado.nextLine();
+						lc.buscarPor(correo);
+						System.out.println("...");
+						System.out.println("Pulse una tecla para continuar");
+						System.out.println("");
+						teclado.nextLine();
+					}
+				case 3:
+					System.out.println("Gracias y vuelva pronto");
+					break;
+				default:
+				}
+			}while(menu !=3);
+		}
+		
 		
 	}
 	

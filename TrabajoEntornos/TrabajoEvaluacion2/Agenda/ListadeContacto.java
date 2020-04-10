@@ -62,12 +62,17 @@ public class ListadeContacto {
 		}
 	}
 	public void buscarPor(String email){
+		int x = 0;
 		System.out.println("Hemos encontrado los siguientes contactos por ese email: \n");
 		for(Contactos c : this.contactos)
 		{
-			if(email == c.getEmail()) {
+			if(email.equalsIgnoreCase(c.getEmail())) {
 				c.mostrarContacto();
+				x++;
 			}
+		}
+		if (x == 0) {
+			System.out.println("No se han encontrado contactos");
 		}
 	}
 	
