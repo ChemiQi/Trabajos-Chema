@@ -123,6 +123,11 @@ public class ListadeContacto {
 		}
 		return 0;
 	}
+	
+	/**
+	 * Metodo para borrar el contacto de la arraylist usando un itinerador
+	 * @param telefono le pasamos el numero de telefono del contacto que queremos borrar
+	 */
 	public void borrarDeArray(int telefono) {
 		Iterator<Contactos> it = this.contactos.iterator();
 		while (it.hasNext())

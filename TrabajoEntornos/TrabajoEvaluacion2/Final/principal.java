@@ -140,7 +140,11 @@ public class principal {
 	}
 	
 
-	//METODOS -----------------------------------------------------------------------------
+	/**
+	 * Metodo para obener una conexion Statement
+	 * @param con le pasamos la conexion a la bbdd
+	 * @return nos devuelve un Statement
+	 */
 	private static Statement conStat(Connection con) {
 		try {
 			return con.createStatement();
@@ -152,6 +156,12 @@ public class principal {
 		
 	}
 	
+	/**
+	 * Metodo que obtiene un arraylist de todo los contactos de la bbdd, sindo i el numero de personas que hay en una bbdd, y si no encuentra a alguien en la bbdd, es decir 
+	 * en ese parametro no hay nadi (id =0), le suma a la i uno mas, para que pase a la siguiente casilla
+	 * @param con le damos la conexion a la base de datos
+	 * @return nos devuelve un arraylist
+	 */
 	private static ArrayList<Contactos> cogerContactos(Connection con) {
 		ArrayList<Contactos> contactos = new ArrayList<Contactos>();
 	
@@ -175,7 +185,11 @@ public class principal {
 		return contactos;
 }
 
-
+	/**
+	 * Metodo para saber cuantas personas hay en la base de datos y saber cuantos contactos hay
+	 * @param stmt le damos un Statement
+	 * @return nos devuelve el numero entero que son el numero de personas
+	 */
 	private static int numeroDeContactos(Statement stmt) {
 		ResultSet rs;
 		String a ;
@@ -196,7 +210,12 @@ public class principal {
 		}
 		return 0;
 	}
-	
+	/**
+	 * Metodo que entra en la base de datos y mira los contactos que hay mediante esa secuencia y nos devuelve un Contacto
+	 * @param i le damos un numero entero de que id debe tener el contacto
+	 * @param stmt  una conexion Statement
+	 * @return nos devuelve un contacto
+	 */
 	private static Contactos cogerContacto(int i, Statement stmt) {
 		ResultSet rs;
 		try {
@@ -219,7 +238,11 @@ public class principal {
 		
 		return null;
 	}
-	
+	/**
+	 * Metodo para añadir un nuevo contacto a la base de datos a la que sera implementada
+	 * @param c2 le pasamos el contacto que queremos añadir
+	 * @param stmt conexion Statement
+	 */
 	private static void añadridContactoBBDD(Contactos c2, Statement stmt) {
 		try {
 			System.out.println("Has llegado aqui");
@@ -230,7 +253,11 @@ public class principal {
 			e.printStackTrace();
 		}	
 	}
-	
+	/**
+	 * Metodo para borrar el contacto en la base de datos
+	 * @param telefono le damos el parametro telefono que es de la forma en la cual borraremos al contacto y todos los usuarios con ese telefono seran borrados
+	 * @param stmt le pasamos la conexion Statement
+	 */
 	private static void borrarDeBBDD(int telefono, Statement stmt) {
 		String borrar = "Delete from agenda.contactos where telefono =" + telefono;
 		try {

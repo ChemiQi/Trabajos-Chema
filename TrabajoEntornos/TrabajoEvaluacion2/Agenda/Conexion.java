@@ -34,6 +34,7 @@ public class Conexion {
 	
 	/**
 	 * Metodo que hace la conexion a la Base de datos
+	 * Nos fijamos que la base de datos es la local, y la contraseña esta indicada
 	 * @return . Devuelve un boolean que nos devolvera "true" si la base de datos se ha conectado, y false si no se ha conectado.
 	 */
 	
