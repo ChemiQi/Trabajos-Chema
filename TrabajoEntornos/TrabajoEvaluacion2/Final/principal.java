@@ -187,7 +187,7 @@ public class principal {
 }
 
 	/**
-	 * Metodo para saber cuantas personas hay en la base de datos y saber cuantos contactos hay
+	 * Metodo para saber cuantass personas hay en la base de datos y saber cuantos contactos hay
 	 * @param stmt le damos un Statement
 	 * @return nos devuelve el numero entero que son el número de personas
 	 */
