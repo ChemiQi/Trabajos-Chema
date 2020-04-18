@@ -122,6 +122,7 @@ public class principal {
 					if (menu4 == 1) {
 						lc.borrarDeArray(telefono);
 						borrarDeBBDD(telefono,stmt);
+						teclado.nextLine();
 					}
 					else if(menu4 ==2) {
 						System.out.println("Volviendo al menu principal");
@@ -188,7 +189,7 @@ public class principal {
 	/**
 	 * Metodo para saber cuantas personas hay en la base de datos y saber cuantos contactos hay
 	 * @param stmt le damos un Statement
-	 * @return nos devuelve el numero entero que son el numero de personas
+	 * @return nos devuelve el numero entero que son el número de personas
 	 */
 	private static int numeroDeContactos(Statement stmt) {
 		ResultSet rs;
@@ -245,7 +246,6 @@ public class principal {
 	 */
 	private static void añadridContactoBBDD(Contactos c2, Statement stmt) {
 		try {
-			System.out.println("Has llegado aqui");
 			stmt.executeUpdate("insert into agenda.contactos (nombre,apellido1,apellido2,direccion,email,telefono) values ('"+c2.getNombre()+"','" + c2.getApellido1() + "','" + c2.getApellido2() + "','" + c2.getDireccion()
 			+"','" + c2.getEmail() +"','"+ String.valueOf(c2.getTelefono()) + "')");
 			
